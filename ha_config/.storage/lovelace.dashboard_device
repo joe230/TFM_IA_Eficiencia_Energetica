@@ -1,0 +1,183 @@
+{
+  "version": 1,
+  "minor_version": 1,
+  "key": "lovelace.dashboard_device",
+  "data": {
+    "config": {
+      "views": [
+        {
+          "type": "sections",
+          "sections": [
+            {
+              "type": "grid",
+              "cards": [
+                {
+                  "type": "heading",
+                  "heading": "Shelly Devices",
+                  "heading_style": "title"
+                },
+                {
+                  "type": "history-graph",
+                  "title": "Real-time Power Consumption (W)",
+                  "entities": [
+                    {
+                      "entity": "sensor.shelly_fridge_kitchen"
+                    },
+                    {
+                      "entity": "sensor.shelly_oven_kitchen"
+                    },
+                    {
+                      "entity": "sensor.shelly_washing_machine_laundry"
+                    }
+                  ],
+                  "hours_to_show": 1,
+                  "refresh_interval": 10
+                },
+                {
+                  "type": "gauge",
+                  "entity": "sensor.shelly_fridge_kitchen",
+                  "min": 0,
+                  "max": 300,
+                  "severity": {
+                    "green": 0,
+                    "yellow": 150,
+                    "red": 250
+                  },
+                  "grid_options": {
+                    "columns": 12,
+                    "rows": "auto"
+                  }
+                },
+                {
+                  "type": "gauge",
+                  "entity": "sensor.shelly_washing_machine_laundry",
+                  "grid_options": {
+                    "columns": 6,
+                    "rows": "auto"
+                  },
+                  "max": 2500
+                },
+                {
+                  "type": "gauge",
+                  "entity": "sensor.shelly_oven_kitchen",
+                  "grid_options": {
+                    "columns": 6,
+                    "rows": "auto"
+                  }
+                }
+              ]
+            },
+            {
+              "type": "grid",
+              "cards": [
+                {
+                  "type": "heading",
+                  "heading": "AI",
+                  "heading_style": "title"
+                },
+                {
+                  "type": "entities",
+                  "title": "🔮 Predicciones IA de Gasto ",
+                  "show_header_toggle": false,
+                  "entities": [
+                    {
+                      "entity": "sensor.fridge_predicted_monthly_spend",
+                      "name": "Gasto Proyectado Nevera",
+                      "icon": "mdi:fridge-outline"
+                    },
+                    {
+                      "entity": "sensor.oven_predicted_monthly_spend",
+                      "name": "Gasto Proyectado Horno",
+                      "icon": "mdi:stove"
+                    },
+                    {
+                      "entity": "sensor.washing_machine_predicted_spend",
+                      "name": "Gasto Proyectado Lavadora",
+                      "icon": "mdi:washing-machine"
+                    },
+                    {
+                      "type": "divider"
+                    },
+                    {
+                      "entity": "sensor.gasto_total_predicho_proximo_mes",
+                      "name": "Gasto Total Estimado",
+                      "icon": "mdi:cash-multiple"
+                    }
+                  ]
+                },
+                {
+                  "show_name": true,
+                  "show_icon": true,
+                  "type": "button",
+                  "name": "Recalcular Predicciones",
+                  "icon": "mdi:brain",
+                  "tap_action": {
+                    "action": "perform-action",
+                    "perform_action": "homeassistant.update_entity",
+                    "target": {
+                      "entity_id": [
+                        "sensor.fridge_predicted_monthly_spend",
+                        "sensor.oven_predicted_monthly_spend",
+                        "sensor.washing_machine_predicted_spend"
+                      ]
+                    }
+                  }
+                },
+                {
+                  "type": "button",
+                  "name": "Reentrenar Modelo ML",
+                  "icon": "mdi:brain",
+                  "tap_action": {
+                    "action": "call-service",
+                    "service": "rest_command.entrenar_modelo_ml"
+                  }
+                }
+              ]
+            },
+            {
+              "type": "grid",
+              "cards": [
+                {
+                  "type": "heading",
+                  "heading": "Chatbot",
+                  "heading_style": "title"
+                },
+                {
+                  "type": "vertical-stack",
+                  "cards": [
+                    {
+                      "type": "markdown",
+                      "content": "{{ state_attr('sensor.ai_energy_report', 'report') }}"
+                    },
+                    {
+                      "show_name": true,
+                      "show_icon": false,
+                      "type": "button",
+                      "name": "Solicitar Informe a la IA",
+                      "icon": "mdi:robot-text",
+                      "tap_action": {
+                        "action": "call-service",
+                        "service": "homeassistant.update_entity",
+                        "target": {
+                          "entity_id": "sensor.ai_energy_report"
+                        }
+                      },
+                      "show_state": false
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "header": {
+            "card": {
+              "type": "markdown",
+              "text_only": true,
+              "content": "# Hello {{ user }}"
+            }
+          }
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,27 @@
+{
+  "version": 1,
+  "minor_version": 1,
+  "key": "lovelace_dashboards",
+  "data": {
+    "items": [
+      {
+        "id": "map",
+        "icon": "mdi:map",
+        "title": "Map",
+        "url_path": "map",
+        "show_in_sidebar": true,
+        "mode": "storage",
+        "require_admin": false
+      },
+      {
+        "id": "dashboard_device",
+        "show_in_sidebar": true,
+        "icon": "mdi:flash",
+        "title": "Simulated Shelly Devices",
+        "require_admin": false,
+        "mode": "storage",
+        "url_path": "dashboard-device"
+      }
+    ]
+  }
+}

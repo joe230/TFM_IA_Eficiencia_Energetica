@@ -1,0 +1,60 @@
+name: tfm_ai_energy_efficiency
+
+services:
+  # Base de Datos PostgreSQL
+  postgres_db:
+    image: postgres:15-alpine
+    container_name: postgres_db
+    env_file:
+      - .env
+    ports:
+      - "${POSTGRES_PORT}:${POSTGRES_PORT}"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    restart: unless-stopped
+
+  # Home Assistant
+  homeassistant:
+    image: "ghcr.io/home-assistant/home-assistant:stable"
+    container_name: homeassistant
+    volumes:
+      - ./ha_config:/config
+    environment:
+      - TZ=Europe/Madrid
+    ports:
+      - "8123:8123"
+    restart: unless-stopped
+
+  # Servidor de IA Local (Ollama)
+  ollama:
+    image: ollama/ollama:latest
+    container_name: ollama
+    ports:
+      - "11434:11434"
+    volumes:
+      - ./ollama_data:/root/.ollama
+    restart: unless-stopped
+
+  # Procesador IA (FastAPI)
+  ai_api:
+    build: .
+    container_name: ai_api
+    env_file:
+      - .env
+    environment:
+      - PYTHONUNBUFFERED=1
+      - POSTGRES_HOST=postgres_db
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./models:/app/models
+      - ./src:/app/src
+    restart: unless-stopped
+    depends_on:
+      - postgres_db
+      - ollama
+  
+
+volumes:
+  postgres_data:
+

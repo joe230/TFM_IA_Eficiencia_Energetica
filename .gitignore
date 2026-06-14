@@ -1,0 +1,45 @@
+# Excluir los CSVs históricos generados por el simulador
+iot_simulator_dev/data/
+
+# Excluir el modelo entrenado (se genera localmente/API)
+models/
+*.joblib
+
+# ==========================================
+# 3. PYTHON (Entornos virtuales y caché)
+# ==========================================
+# Caché de ejecución de Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Entornos virtuales locales
+.venv/
+venv/
+ENV/
+env/
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+
+# Configuración local de VS Code o PyCharm
+.vscode/
+.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.swp
+
+# Archivos ocultos del sistema operativo
+.DS_Store
+Thumbs.db

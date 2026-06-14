@@ -1,0 +1,16 @@
+{
+  "version": 1,
+  "minor_version": 5,
+  "key": "core.config_entries",
+  "data": {
+    "entries": [
+      {"created_at":"2026-06-01T09:41:31.352666+00:00","data":{},"disabled_by":null,"discovery_keys":{},"domain":"sun","entry_id":"01KT18YMJRXGPHBSYDJ34HZVM2","minor_version":1,"modified_at":"2026-06-01T09:41:31.352668+00:00","options":{},"pref_disable_new_entities":false,"pref_disable_polling":false,"source":"import","subentries":[],"title":"Sun","unique_id":null,"version":1},
+      {"created_at":"2026-06-01T09:41:31.491684+00:00","data":{},"disabled_by":null,"discovery_keys":{},"domain":"go2rtc","entry_id":"01KT18YMQ3AGK90VV1QJPDFY2H","minor_version":1,"modified_at":"2026-06-01T09:41:31.491685+00:00","options":{},"pref_disable_new_entities":false,"pref_disable_polling":false,"source":"system","subentries":[],"title":"go2rtc","unique_id":null,"version":1},
+      {"created_at":"2026-06-01T09:41:31.494709+00:00","data":{},"disabled_by":null,"discovery_keys":{},"domain":"backup","entry_id":"01KT18YMQ6ERXFSX5ZXVBZ6P3P","minor_version":1,"modified_at":"2026-06-01T09:41:31.494710+00:00","options":{},"pref_disable_new_entities":false,"pref_disable_polling":false,"source":"system","subentries":[],"title":"Backup","unique_id":null,"version":1},
+      {"created_at":"2026-06-01T09:43:40.282360+00:00","data":{},"disabled_by":null,"discovery_keys":{},"domain":"shopping_list","entry_id":"01KT192JFTT4BRPF9Q6K90DRVD","minor_version":1,"modified_at":"2026-06-01T09:43:40.282362+00:00","options":{},"pref_disable_new_entities":false,"pref_disable_polling":false,"source":"onboarding","subentries":[],"title":"Shopping list","unique_id":"shopping_list","version":1},
+      {"created_at":"2026-06-01T09:43:40.287520+00:00","data":{"language":"en","tld":"com"},"disabled_by":null,"discovery_keys":{},"domain":"google_translate","entry_id":"01KT192JFZ8V7AWQS1SMCNDNRS","minor_version":1,"modified_at":"2026-06-01T09:43:40.287521+00:00","options":{},"pref_disable_new_entities":false,"pref_disable_polling":false,"source":"onboarding","subentries":[],"title":"Google Translate text-to-speech","unique_id":null,"version":1},
+      {"created_at":"2026-06-01T09:43:40.385909+00:00","data":{},"disabled_by":null,"discovery_keys":{},"domain":"radio_browser","entry_id":"01KT192JK1YXQMX379RRB9MJ17","minor_version":1,"modified_at":"2026-06-01T09:43:40.385910+00:00","options":{},"pref_disable_new_entities":false,"pref_disable_polling":false,"source":"onboarding","subentries":[],"title":"Radio Browser","unique_id":null,"version":1},
+      {"created_at":"2026-06-04T11:39:49.314717+00:00","data":{},"disabled_by":null,"discovery_keys":{},"domain":"template","entry_id":"01KT96XD62F78J82TEEQFQZ47J","minor_version":2,"modified_at":"2026-06-04T11:39:49.314718+00:00","options":{"device_class":"monetary","name":"Gasto Total Predicho Próximo Mes","state":"{{ (states('sensor.fridge_predicted_monthly_spend') | float(0)) + \n   (states('sensor.oven_predicted_monthly_spend') | float(0)) + \n   (states('sensor.washing_machine_predicted_spend') | float(0)) | round(2) }}","template_type":"sensor","unit_of_measurement":"€"},"pref_disable_new_entities":false,"pref_disable_polling":false,"source":"user","subentries":[],"title":"Gasto Total Predicho Próximo Mes","unique_id":null,"version":1}
+    ]
+  }
+}

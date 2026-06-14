@@ -1,0 +1,18 @@
+- id: 'forward_shelly_telemetry_to_fastapi'
+  alias: "Forward Shelly Telemetry to FastAPI"
+  description: "Triggers whenever any Shelly sensor updates its state and forwards data to the AI core"
+  trigger:
+    - platform: state
+      entity_id:
+        - sensor.shelly_fridge_kitchen
+        - sensor.shelly_oven_kitchen
+        - sensor.shelly_washing_machine_laundry
+  action:
+    - action: rest_command.send_telemetry_to_fastapi
+      data:
+        sensor_id: "{{ trigger.entity_id }}"
+        power_w: "{{ trigger.to_state.state | float(0.0) }}"
+        voltage_v: "{{ trigger.to_state.attributes.voltage | float(230.0) if trigger.to_state.attributes.voltage is defined else 230.0 }}"
+        total_energy_kwh: "{{ trigger.to_state.attributes.total_energy_kwh | float(0.0) if trigger.to_state.attributes.total_energy_kwh is defined else 0.0 }}"
+  mode: queued
+  max: 10

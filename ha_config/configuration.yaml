@@ -1,0 +1,97 @@
+
+# Loads default set of integrations. Do not remove.
+default_config:
+
+# Load frontend themes from the themes folder
+frontend:
+  themes: !include_dir_merge_named themes
+
+automation: !include automations.yaml
+script: !include scripts.yaml
+scene: !include scenes.yaml
+
+rest_command:
+  send_telemetry_to_fastapi:
+    url: "http://ai_api:8000/api/telemetry"
+    method: POST
+    content_type: "application/json"
+    payload: >
+      {
+        "timestamp": "{{ now().isoformat() }}",
+        "sensor_id": "{{ sensor_id }}",
+        "power_w": {{ power_w | float(0.0) }},
+        "voltage_v": {{ voltage_v | float(230.0) }},
+        "total_energy_kwh": {{ total_energy_kwh | float(0.0) }}
+      }
+  entrenar_modelo_ml:
+    url: "http://ai_api:8000/api/train"
+    method: POST
+    timeout: 60
+      
+sensor:
+  - platform: rest
+    name: "Oven Predicted Monthly Spend"
+    unique_id: "ia_oven_predicted_spend_01"
+    resource: "http://ai_api:8000/api/predict/monthly/sensor.shelly_oven_kitchen"
+    timeout: 30
+    method: GET
+    value_template: >
+      {% if value_json is defined and value_json.predicted_spend_next_30d is defined %}
+        {{ value_json.predicted_spend_next_30d | float }}
+      {% else %}
+        {{ states('sensor.oven_predicted_monthly_spend') | default(0, true) }}
+      {% endif %}
+    unit_of_measurement: "€"
+    device_class: monetary
+    scan_interval: 43200
+    json_attributes:
+      - calculated_at
+      - sensor_id
+
+  - platform: rest
+    name: "Fridge Predicted Monthly Spend"
+    unique_id: "ia_fridge_predicted_spend_01"
+    resource: "http://ai_api:8000/api/predict/monthly/sensor.shelly_fridge_kitchen"
+    timeout: 30
+    method: GET
+    value_template: >
+      {% if value_json is defined and value_json.predicted_spend_next_30d is defined %}
+        {{ value_json.predicted_spend_next_30d | float }}
+      {% else %}
+        {{ states('sensor.fridge_predicted_monthly_spend') | default(0, true) }}
+      {% endif %}
+    unit_of_measurement: "€"
+    device_class: monetary
+    scan_interval: 43200
+    json_attributes:
+      - calculated_at
+      - sensor_id
+
+  - platform: rest
+    name: "Washing Machine Predicted Spend"
+    unique_id: "ia_washing_predicted_spend_01"
+    resource: "http://ai_api:8000/api/predict/monthly/sensor.shelly_washing_machine_laundry"
+    timeout: 30
+    method: GET
+    value_template: >
+      {% if value_json is defined and value_json.predicted_spend_next_30d is defined %}
+        {{ value_json.predicted_spend_next_30d | float }}
+      {% else %}
+        {{ states('sensor.washing_machine_predicted_spend') | default(0, true) }}
+      {% endif %}
+    unit_of_measurement: "€"
+    device_class: monetary
+    scan_interval: 43200
+    json_attributes:
+      - calculated_at
+      - sensor_id
+
+  - platform: rest
+    name: "AI Energy Report"
+    resource: "http://ai_api:8000/api/energy-report"
+    timeout: 60
+    method: POST
+    value_template: "{{ value_json.status }}"
+    json_attributes:
+      - report
+    scan_interval: 43200

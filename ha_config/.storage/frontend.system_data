@@ -1,0 +1,50 @@
+{
+  "version": 1,
+  "minor_version": 1,
+  "key": "frontend.system_data",
+  "data": {
+    "core": {
+      "onboarded_version": "2026.5.4",
+      "onboarded_date": "2026-06-01T09:43:48.279Z"
+    },
+    "home": {
+      "shortcuts": [
+        {
+          "type": "summary",
+          "key": "light",
+          "hidden": true
+        },
+        {
+          "type": "summary",
+          "key": "climate",
+          "hidden": true
+        },
+        {
+          "type": "summary",
+          "key": "security",
+          "hidden": true
+        },
+        {
+          "type": "summary",
+          "key": "media_players",
+          "hidden": true
+        },
+        {
+          "type": "summary",
+          "key": "maintenance",
+          "hidden": true
+        },
+        {
+          "type": "summary",
+          "key": "weather",
+          "hidden": true
+        },
+        {
+          "type": "summary",
+          "key": "energy",
+          "hidden": true
+        }
+      ]
+    }
+  }
+}
